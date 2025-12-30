@@ -1,0 +1,12 @@
+# Compatible versions for LangChain SQL Agent
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-dotenv==1.0.0
+langchain==0.1.6
+langchain-openai==0.0.5
+langchain-community==0.0.20
+openai==1.10.0
+sqlalchemy==2.0.25
+pydantic==2.5.3
+pydantic-core==2.14.6
+httpx==0.25.2
