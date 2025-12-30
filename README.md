@@ -10,7 +10,9 @@ Watch how to use the SQLite Chat Agent:
 
 https://github.com/user-attachments/assets/howto.mp4
 
-<video src="howto.mp4" controls width="100%"></video>
+https://github.com/user-attachments/assets/72aa1c89-ff62-4c1f-8f27-e2259e2f8517
+
+<video src="https://github.com/user-attachments/assets/72aa1c89-ff62-4c1f-8f27-e2259e2f8517" controls width="100%"></video>
 
 ## Features
 
