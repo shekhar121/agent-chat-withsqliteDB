@@ -46,7 +46,7 @@ agent-chat-with-sqliteDB/
 
 ## Prerequisites
 
-- Python 3.9+
+- Python 3.14+ (or Python 3.11-3.13 with compatible NumPy versions)
 - Node.js 18+
 - OpenAI API key
 
@@ -59,7 +59,7 @@ agent-chat-with-sqliteDB/
 cd backend
 
 # Create virtual environment
-python -m venv venv
+python3 -m venv venv
 
 # Activate virtual environment
 # On Windows:
@@ -67,12 +67,19 @@ venv\Scripts\activate
 # On macOS/Linux:
 source venv/bin/activate
 
+# Upgrade pip, setuptools, and wheel
+pip install --upgrade pip setuptools wheel
+
 # Install dependencies
 pip install -r requirements.txt
 
-# Create .env file with your OpenAI API key
-echo OPENAI_API_KEY=your_openai_api_key_here > .env
+# Edit .env file with your OpenAI API key
+# The .env file template is already created - just edit it:
+# Replace 'your-openai-api-key-here' with your actual OpenAI API key
+# Get your API key from: https://platform.openai.com/api-keys
 ```
+
+**Important:** Always activate the virtual environment before running the backend. You'll know it's activated when you see `(venv)` in your terminal prompt.
 
 ### 2. Frontend Setup
 
@@ -89,14 +96,21 @@ npm install
 **Start the Backend (Terminal 1):**
 ```bash
 cd backend
-# Activate venv if not already active
-venv\Scripts\activate  # Windows
-# or: source venv/bin/activate  # macOS/Linux
 
+# IMPORTANT: Activate virtual environment first!
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
+
+# You should see (venv) in your terminal prompt
 # Run the server
 python main.py
+# or: python3 main.py
 ```
 The backend will start at http://localhost:8000
+
+**Note:** If you get `ModuleNotFoundError`, make sure the virtual environment is activated. The `(venv)` prefix should appear in your terminal prompt.
 
 **Start the Frontend (Terminal 2):**
 ```bash
@@ -136,11 +150,21 @@ Visit **http://localhost:5173** in your browser.
 
 ### Environment Variables
 
-Create a `.env` file in the `backend/` directory:
+A `.env` file template has been created in the `backend/` directory. **You must edit it** with your actual OpenAI API key:
+
+1. Open `backend/.env` in a text editor
+2. Replace `your-openai-api-key-here` with your actual OpenAI API key
+3. Save the file
+
+The `.env` file should look like:
 
 ```env
-OPENAI_API_KEY=sk-your-openai-api-key-here
+OPENAI_API_KEY=sk-proj-abc123xyz...your-actual-key-here
 ```
+
+**Get your API key from:** https://platform.openai.com/api-keys
+
+**Important:** The `.env` file is already in `.gitignore` so it won't be committed to version control.
 
 ### Changing the Database
 
@@ -155,18 +179,31 @@ Replace `db/data.sqlite` with your own SQLite database file. The agent will auto
 - Axios
 
 **Backend:**
-- FastAPI
-- LangChain
-- OpenAI GPT-4
-- SQLAlchemy
+- FastAPI 0.109.0
+- LangChain 1.2.4+ (updated for Python 3.14 compatibility)
+- OpenAI API (GPT-4)
+- SQLAlchemy 2.0+
 - Python-dotenv
+- NumPy 2.4+ (for Python 3.14)
 
 ## Troubleshooting
 
 ### Backend won't start
-- Ensure Python 3.9+ is installed
-- Check that all dependencies are installed
-- Verify your OpenAI API key is valid
+- **ModuleNotFoundError**: Make sure you've activated the virtual environment with `source venv/bin/activate` (macOS/Linux) or `venv\Scripts\activate` (Windows). You should see `(venv)` in your terminal prompt.
+- Ensure Python 3.14+ is installed (or Python 3.11-3.13 with compatible packages)
+- Check that all dependencies are installed: `pip install -r requirements.txt`
+- Verify your OpenAI API key is valid in the `.env` file
+
+### API Key Error
+- **"The api_key client option must be set"**: 
+  - Make sure you've edited the `backend/.env` file and replaced `your-openai-api-key-here` with your actual OpenAI API key
+  - The API key should start with `sk-` (for OpenAI API keys)
+  - Verify the `.env` file is in the `backend/` directory
+  - Restart the backend server after updating the `.env` file
+  - Get your API key from: https://platform.openai.com/api-keys
+
+### NumPy Build Errors
+- If you get NumPy build errors, ensure you're using Python 3.14+ or install NumPy 2.x separately first
 
 ### Frontend can't connect to backend
 - Ensure backend is running on port 8000
